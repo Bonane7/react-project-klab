@@ -2,14 +2,13 @@ import { Link } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import { IoPersonOutline } from "react-icons/io5";
 import { MdOutlineShoppingBag } from "react-icons/md";
-import { IoIosArrowUp } from "react-icons/io";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { RiMenu2Fill } from "react-icons/ri";
 
 function NavBare() {
   return (
     <>
-      <div className="w-full h-20 bg-white-950 flex justify-between items-center px-10 shadow-b-blue-200">
+      <div className=" fixed w-full h-20 bg-white flex justify-between items-center px-10 shadow-b-blue-200 z-50 top-0">
         <div className="flex items-center justify-center">
           <p className="hidden md:block font-Maven text-black text-3xl font-semibold ">
             muniture
