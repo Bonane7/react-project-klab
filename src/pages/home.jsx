@@ -1,5 +1,6 @@
 import { MdOutlineChair } from "react-icons/md";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { MdKeyboardArrowDown } from "react-icons/md";
 import hero_1 from "../assets/images/hero_01.webp";
 
 import living from "../assets/images/living.webp";
@@ -15,8 +16,52 @@ import ProductE from "../assets/Product_images/product_5.webp";
 import ProductF from "../assets/Product_images/product_6.webp";
 import ProductG from "../assets/Product_images/product_7.webp";
 import ProductH from "../assets/Product_images/product_8.webp";
+import ImageVideo from "../assets/Product_images/video.webp";
+
+
+import React, { useEffect, useState } from "react";
+
+
+
 
 function Home() {
+const [timeLeft, setTimeLeft] = useState(220 * 24 * 60 * 60);
+
+useEffect(() => {
+
+  const interval = setInterval(() => {
+
+    setTimeLeft((prev) => {
+
+      if (prev <= 0) {
+        clearInterval(interval);
+        return 0;
+      }
+
+      return prev - 1;
+
+    });
+
+  }, 1000);
+
+  return () => clearInterval(interval);
+
+}, []);
+
+const days = Math.floor(timeLeft / (24 * 60 * 60));
+
+const hours = Math.floor(
+  (timeLeft % (24 * 60 * 60)) / (60 * 60)
+);
+
+const mins = Math.floor(
+  (timeLeft % (60 * 60)) / 60
+);
+
+const secs = timeLeft % 60;
+
+
+
   const Products = [
     {
       id: 1,
@@ -74,8 +119,18 @@ function Home() {
         <div className=" w-full h-[40%] pt-20">
           <div className="flex items-center">
             <div>
-              <button className="bg-[#FFA832] px-8 py-3 rounded-4xl ">
-                <MdOutlineChair className="text-4xl text-white" />
+              <button className=" relative overflow-hidden bg-[#FFA832] px-8 py-3 rounded-4xl group">
+                {/* Background animation */}
+                <span className="absolute inset-0 bg-gray-800 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500"></span>
+
+                {/* Icon */}
+                <MdOutlineChair
+                  className="
+      relative z-10
+      text-4xl
+      text-white
+    "
+                />
               </button>
             </div>
             <div className="flex">
@@ -94,9 +149,10 @@ function Home() {
           </div>
           <div className="mt-2 flex">
             <p className="text-5xl font-Bricolage font-bold"> Creations </p>
-            <span className="rounded-4xl text-sm bg-[#FFA832] px-3 py-3 ml-4 font-bold text-white">
-              Shop now
-            </span>
+            <button className="relative overflow-hidden group rounded-4xl text-sm bg-[#FFA832] ml-4 font-bold text-white px-6 py-3">
+              <span className="absolute w-full h-full inset-0 flex items-center justify-center bg-gray-900 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 text-white "></span>
+              <span className="relative z-10">Shop now</span>
+            </button>
           </div>
         </div>
         <div
@@ -172,7 +228,17 @@ function Home() {
         </div>
       </section>
 
-      <section className="w-full px-6 py-10 bg-white">
+      <div>
+        <p className="text-gray-400 mt-10 text-4xl text-center font-bold">
+          You are in
+          <span className="text-black border-b-2 border-orange-500 pb-1 inline-flex items-center gap-1 hover:cursor-pointer">
+            Kitchen
+            <MdKeyboardArrowDown className="text-[20px]" />
+          </span>
+        </p>
+      </div>
+
+      <section className="w-full px-6 py-10 bg-white mt-12">
         {/* MOBILE SCROLL */}
         <div
           className="
@@ -218,6 +284,80 @@ function Home() {
           ))}
         </div>
       </section>
+      <div className="w-full flex justify-center">
+       
+          <button className="relative px-7 py-3 border border-gray-200 hover:text-white group rounded-4xl text-center font-bold overflow-hidden ">
+            <span className="absolute w-full h-full inset-0 bg-orange-500 -translate-x-full transition-transform group-hover:translate-0 duration-500 ">
+
+            </span>
+            <span className="relative z-10 ">Shop All Products</span>
+          </button>
+        
+      </div>
+
+<section className="w-full px-6 py-10 bg-white mt-12">
+
+  <div className="w-full min-h-[500px] grid md:flex">
+
+    {/* Image */}
+    <div
+      style={{ backgroundImage: `url(${ImageVideo})` }}
+      className="w-full md:w-1/2 bg-cover bg-center min-h-[300px]"
+    >
+    </div>
+
+    {/* Content */}
+    <div className="w-full md:w-1/2 grid p-10 items-center justify-center">
+
+      <div className="grid gap-6">
+
+        <p className="text-center font-Outfit text-sm">
+          LIMITED TIME ONLY
+        </p>
+
+        <p className="text-3xl md:text-5xl text-center font-Maven">
+          The living room event up
+          <br />
+          to 30% off
+        </p>
+
+        <p className="text-center md:text-center text-xl text-gray-400">
+          Use this text to share information about your <br/>brand with your customers.
+          Describe a product, share announcements, or welcome customers to your store.
+        </p>
+
+            {/* TIMER */}
+            <div className="flex justify-center gap-4 flex-wrap mt-6">
+
+              <div className="w-28 h-28 rounded-full border border-gray-300 flex flex-col items-center justify-center">
+                <h1 className="text-5xl font-bold">{days}</h1>
+                <p className="text-xl">Days</p>
+              </div>
+
+              <div className="w-28 h-28 rounded-full border border-gray-300 flex flex-col items-center justify-center">
+                <h1 className="text-5xl font-bold">{hours}</h1>
+                <p className="text-xl">Hours</p>
+              </div>
+
+              <div className="w-28 h-28 rounded-full border border-gray-300 flex flex-col items-center justify-center">
+                <h1 className="text-5xl font-bold">{mins}</h1>
+                <p className="text-xl">Mins</p>
+              </div>
+
+              <div className="w-28 h-28 rounded-full border border-gray-300 flex flex-col items-center justify-center">
+                <h1 className="text-5xl font-bold">{secs}</h1>
+                <p className="text-xl">Secs</p>
+              </div>
+
+            </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
     </>
   );
 }

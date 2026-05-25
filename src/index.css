@@ -1,6 +1,5 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700&display=swap'); */
 
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Maven+Pro&family=Playwrite+MX+Guides&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Maven+Pro&family=Outfit:wght@100..900&family=Playwrite+MX+Guides&display=swap');
 
 @import "tailwindcss";
 
@@ -8,4 +7,5 @@
   --font-Maven: "Maven Pro", sans-serif;
   --font-Playwrite: "Playwrite MX Guides", cursive;
   --font-Bricolage: "Bricolage Grotesque", sans-serif;
+  --font-Outfit: "Outfi", sans-serif;
 }
