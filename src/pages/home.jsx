@@ -135,20 +135,20 @@ const secs = timeLeft % 60;
             </div>
             <div className="flex">
               <div className="ml-4">
-                <p className="text-5xl font-Bricolage font-bold">
+                <p className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-Bricolage font-bold">
                   Elevate Your Lifestyle
                 </p>
               </div>
             </div>
           </div>
           <div className="mt-2">
-            <p className="text-5xl font-Bricolage font-bold">
+            <p className=" font-Bricolage font-bold text-3xl sm:text-4xl md:text-5xl lg:text-5xl">
               with Our Furniture
               <br />
             </p>
           </div>
           <div className="mt-2 flex">
-            <p className="text-5xl font-Bricolage font-bold"> Creations </p>
+            <p className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-Bricolage font-bold"> Creations </p>
             <button className="relative overflow-hidden group rounded-4xl text-sm bg-[#FFA832] ml-4 font-bold text-white px-6 py-3">
               <span className="absolute w-full h-full inset-0 flex items-center justify-center bg-gray-900 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 text-white "></span>
               <span className="relative z-10">Shop now</span>
