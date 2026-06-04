@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
+import ImagePro from "../assets/Product_images/product_1.webp"
 
 function CartPopup({ isOpen, onClose }) {
   // Empêcher le scroll du body quand le popup est ouvert
@@ -61,7 +62,10 @@ function CartPopup({ isOpen, onClose }) {
             <div className="border-b pb-4 mb-4">
               <div className="flex gap-4">
                 {/* Image placeholder */}
-                <div className="w-24 h-24 bg-gray-100 rounded-lg flex-shrink-0"></div>
+                <div className="w-24 h-24 bg-gray-100 rounded-lg flex-shrink-0">
+              <img src={ImagePro}alt="image-product" />
+
+                </div>
                 
                 {/* Détails produit */}
                 <div className="flex-1">

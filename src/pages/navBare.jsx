@@ -6,7 +6,7 @@ import { IoPersonOutline } from "react-icons/io5";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { RiMenu2Fill } from "react-icons/ri";
-import CartPopup from "../components/CartPopup"; // Importer le composant
+import CartPopup from "../components/CartPopup";
 
 function NavBare() {
   const [isCartOpen, setIsCartOpen] = useState(false);

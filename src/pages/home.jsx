@@ -1,7 +1,7 @@
 import { MdOutlineChair } from "react-icons/md";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import {FiShoppingBag} from "react-icons/fi";
+import { FiShoppingBag } from "react-icons/fi";
 
 import hero_1 from "../assets/images/hero_01.webp";
 import RoomImage from "../assets/Product_images/RoomImage.webp";
@@ -32,9 +32,6 @@ import InstaC from "../assets/Product_images/insta3.webp";
 import InstaD from "../assets/Product_images/insta4.webp";
 import InstaE from "../assets/Product_images/insta5.webp";
 import InstaF from "../assets/Product_images/insta6.webp";
-
-
-
 
 import React, { useEffect, useState } from "react";
 
@@ -114,14 +111,7 @@ function Home() {
       image: ProductH,
     },
   ];
-    const images = [
-    InstaA,
-    InstaB,
-    InstaC,
-    InstaD,
-    InstaE,
-    InstaF,
-  ];
+  const images = [InstaA, InstaB, InstaC, InstaD, InstaE, InstaF];
 
   const topSeller = [
     {
@@ -180,8 +170,7 @@ function Home() {
           </div>
           <div className="mt-2 flex">
             <p className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-Bricolage font-bold">
-              {" "}
-              Creations{" "}
+
             </p>
             <button className="relative overflow-hidden group rounded-4xl text-sm bg-[#FFA832] ml-4 font-bold text-white px-6 py-3">
               <span className="absolute w-full h-full inset-0 flex items-center justify-center bg-gray-900 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 text-white "></span>
@@ -189,7 +178,10 @@ function Home() {
             </button>
           </div>
         </div>
-        <div
+
+
+        
+        <section
           className="w-full h-[70vh] bg-cover bg-center rounded-4xl flex items-center justify-center text-white"
           style={{ backgroundImage: `url(${hero_1})` }}
         >
@@ -197,7 +189,7 @@ function Home() {
             <FaArrowLeft className="text-5xl text-black bg-amber-100 p-3 rounded-full" />
             <FaArrowRight className="text-5xl text-black bg-amber-100 p-3 rounded-full" />
           </div>
-        </div>
+        </section>
       </section>
       <section className="w-full px-6 py-10 bg-[#f5f5f5]">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -272,7 +264,7 @@ function Home() {
         </p>
       </div>
 
-      <section className="w-full px-6 py-10 bg-white mt-12">
+      <section className="flex justify-center items-center w-full px-6 py-10 bg-white mt-12">
         <div
           className="
     flex gap-5 overflow-x-auto
@@ -483,22 +475,19 @@ function Home() {
         </div>
       </section>
 
-<section className="w-full px-4 py-10 bg-white">
-
-  <div
-    className="
+      <section className="w-full px-4 py-10 bg-white">
+        <div
+          className="
       flex gap-5 overflow-x-auto
       md:grid md:grid-cols-3
       xl:grid-cols-4
       md:place-items-center
     "
-  >
-
-    {topSeller.map((e) => (
-
-      <div
-        key={e.id}
-        className="
+        >
+          {topSeller.map((e) => (
+            <div
+              key={e.id}
+              className="
           group
           relative
           min-w-[300px]
@@ -507,15 +496,13 @@ function Home() {
           overflow-hidden
           bg-white
         "
-      >
-
-        {/* IMAGE CONTAINER */}
-        <div className="relative overflow-hidden rounded-xl">
-
-          <img
-            src={e.image}
-            alt={e.title}
-            className="
+            >
+              {/* IMAGE CONTAINER */}
+              <div className="relative overflow-hidden rounded-xl">
+                <img
+                  src={e.image}
+                  alt={e.title}
+                  className="
               w-full
               h-[350px]
               object-cover
@@ -523,11 +510,11 @@ function Home() {
               duration-700
               group-hover:scale-110
             "
-          />
+                />
 
-          {/* BAG BUTTON */}
-          <div
-            className="
+                {/* BAG BUTTON */}
+                <div
+                  className="
               absolute
               bottom-5
               right-5
@@ -544,64 +531,49 @@ function Home() {
               cursor-pointer
               hover:bg-orange-500
             "
-          >
-            <FiShoppingBag className="text-2xl" />
-          </div>
+                >
+                  <FiShoppingBag className="text-2xl" />
+                </div>
+              </div>
 
+              {/* CONTENT */}
+              <div className="p-4">
+                <h1 className="text-xl font-extra">{e.title}</h1>
+
+                <p className="text-orange-500 mt-2">{e.price}</p>
+              </div>
+            </div>
+          ))}
         </div>
+      </section>
 
-        {/* CONTENT */}
-        <div className="p-4">
-
-          <h1 className="text-xl font-extra">
-            {e.title}
-          </h1>
-
-          <p className="text-orange-500 mt-2">
-            {e.price}
-          </p>
-
-        </div>
-
-      </div>
-
-    ))}
-
-  </div>
-
-</section>
-
-<section className="w-full bg-[#f5f5f5] py-16 px-5 lg:px-20">
-
-      <div
-        className="
+      <section className="w-full bg-[#f5f5f5] py-16 px-5 lg:px-20">
+        <div
+          className="
           grid
           grid-cols-1
           lg:grid-cols-2
           gap-14
           items-center
         "
-      >
-
-        {/* LEFT CONTENT */}
-        <div className="space-y-8">
-
-          <div className="space-y-5">
-
-            <p
-              className="
+        >
+          {/* LEFT CONTENT */}
+          <div className="space-y-8">
+            <div className="space-y-5">
+              <p
+                className="
                 uppercase
                 tracking-[4px]
                 text-sm
                 text-orange-500
                 font-semibold
               "
-            >
-              Instagram Shop
-            </p>
+              >
+                Instagram Shop
+              </p>
 
-            <h1
-              className="
+              <h1
+                className="
                 text-4xl
                 md:text-5xl
                 font-bold
@@ -609,31 +581,28 @@ function Home() {
                 leading-tight
                 max-w-[500px]
               "
-            >
-              Discover inspiration
-              from our furniture
-            </h1>
+              >
+                Discover inspiration from our furniture
+              </h1>
 
-            <p
-              className="
+              <p
+                className="
                 text-gray-500
                 text-base
                 md:text-lg
                 leading-8
                 max-w-[550px]
               "
-            >
-              Tag @miniture in your Instagram photos
-              for a chance to be featured here.
-              Discover beautiful furniture ideas and
-              modern interior inspiration.
-            </p>
+              >
+                Tag @miniture in your Instagram photos for a chance to be
+                featured here. Discover beautiful furniture ideas and modern
+                interior inspiration.
+              </p>
+            </div>
 
-          </div>
-
-          {/* BUTTON */}
-          <button
-            className="
+            {/* BUTTON */}
+            <button
+              className="
               relative
               overflow-hidden
               border
@@ -644,11 +613,10 @@ function Home() {
               font-semibold
               group
             "
-          >
-
-            {/* HOVER BG */}
-            <span
-              className="
+            >
+              {/* HOVER BG */}
+              <span
+                className="
                 absolute
                 inset-0
                 bg-orange-500
@@ -657,51 +625,46 @@ function Home() {
                 transition-transform
                 duration-500
               "
-            ></span>
+              ></span>
 
-            {/* TEXT */}
-            <span
-              className="
+              {/* TEXT */}
+              <span
+                className="
                 relative
                 z-10
                 group-hover:text-white
                 transition
               "
-            >
-              Visit Our Instagram
-            </span>
+              >
+                Visit Our Instagram
+              </span>
+            </button>
+          </div>
 
-          </button>
-
-        </div>
-
-        {/* RIGHT IMAGES */}
-        <div
-          className="
+          {/* RIGHT IMAGES */}
+          <div
+            className="
             grid
             grid-cols-2
             md:grid-cols-3
             gap-5
           "
-        >
-
-          {images.map((img, index) => (
-
-            <div
-              key={index}
-              className="
+          >
+            {images.map((img, index) => (
+              <div
+                key={index}
+                className="
                 relative
                 group
                 overflow-hidden
                 rounded-[25px]
               "
-            >
-
-              {/* IMAGE */}
-              <img
-                src={img}
-                alt=""
-                className="
+              >
+                {/* IMAGE */}
+                <img
+                  src={img}
+                  alt=""
+                  className="
                   w-full
                   h-[250px]
                   md:h-[320px]
@@ -710,11 +673,11 @@ function Home() {
                   duration-700
                   group-hover:scale-110
                 "
-              />
+                />
 
-              {/* ICON */}
-              <div
-                className="
+                {/* ICON */}
+                <div
+                  className="
                   absolute
                   bottom-4
                   right-4
@@ -733,19 +696,14 @@ function Home() {
                   hover:scale-110
                   hover:bg-orange-500
                 "
-              >
-                <FaInstagram />
+                >
+                  <FaInstagram />
+                </div>
               </div>
-
-            </div>
-
-          ))}
-
+            ))}
+          </div>
         </div>
-
-      </div>
-
-    </section>
+      </section>
     </>
   );
 }
