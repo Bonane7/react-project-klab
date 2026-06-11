@@ -4,8 +4,8 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { FiShoppingBag } from "react-icons/fi";
 
 import hero_1 from "../assets/images/hero_01.webp";
-import hero_2 from "../assets/images/hero_01.webp";
-import hero_3 from "../assets/images/hero_01.webp";
+// import hero_2 from "../assets/images/hero_01.webp";
+// import hero_3 from "../assets/images/hero_01.webp";
 import RoomImage from "../assets/Product_images/RoomImage.webp";
 
 import living from "../assets/images/living.webp";
