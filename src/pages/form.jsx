@@ -1,8 +1,8 @@
-import React from "react";
+
 import { IoMdClose } from "react-icons/io";
 function Form({ handleModal }) {
   return (
-    <div className="flex flex-col gap-4 p-4 border-2rounded-md w-[20rem]">
+    <div className="flex flex-col gap-4 p-4 border-2 rounded-md w-[20rem]">
       <IoMdClose
         onClick={handleModal}
         className="self-end text-2xl cursor-pointer"

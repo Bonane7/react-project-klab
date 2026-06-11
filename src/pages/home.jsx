@@ -35,7 +35,7 @@ import InstaD from "../assets/Product_images/insta4.webp";
 import InstaE from "../assets/Product_images/insta5.webp";
 import InstaF from "../assets/Product_images/insta6.webp";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function Home() {
   const [timeLeft, setTimeLeft] = useState(220 * 24 * 60 * 60);
@@ -171,9 +171,7 @@ function Home() {
             </p>
           </div>
           <div className="mt-2 flex">
-            <p className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-Bricolage font-bold">
-
-            </p>
+            <p className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-Bricolage font-bold"></p>
             <button className="relative overflow-hidden group rounded-4xl text-sm bg-[#FFA832] ml-4 font-bold text-white px-6 py-3">
               <span className="absolute w-full h-full inset-0 flex items-center justify-center bg-gray-900 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 text-white "></span>
               <span className="relative z-10">Shop now</span>
@@ -181,8 +179,6 @@ function Home() {
           </div>
         </div>
 
-
-        
         <section
           className="w-full h-[70vh] bg-cover bg-center rounded-4xl flex items-center justify-center text-white"
           style={{ backgroundImage: `url(${hero_1})` }}
