@@ -33,7 +33,6 @@ function DashboardLayout() {
   ];
 
   const handleLogout = () => {
-    // Logique de déconnexion
     navigate("/");
   };
 
@@ -51,8 +50,15 @@ function DashboardLayout() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Logique de recherche
     console.log("Recherche:", searchQuery);
+  };
+
+  // Fonction pour vérifier si un item est actif
+  const isItemActive = (itemPath) => {
+    if (itemPath === "/dashboard") {
+      return location.pathname === "/dashboard";
+    }
+    return location.pathname === itemPath || location.pathname.startsWith(itemPath + '/');
   };
 
   return (
@@ -101,7 +107,7 @@ function DashboardLayout() {
         {/* MENU ITEMS */}
         <nav className="flex-1 overflow-y-auto py-4 px-3">
           {menuItems.map((item) => {
-            const isActive = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
+            const isActive = isItemActive(item.path);
             return (
               <Link
                 key={item.path}
@@ -111,7 +117,7 @@ function DashboardLayout() {
                   flex items-center gap-3 px-4 py-3 rounded-xl mb-1
                   transition-all duration-200 group
                   ${isActive 
-                    ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30' 
+                    ? 'bg-orange-100 text-orange-500 shadow-lg shadow-orange-500/30' 
                     : 'text-gray-600 hover:bg-orange-50 hover:text-orange-500'
                   }
                 `}
@@ -121,7 +127,7 @@ function DashboardLayout() {
                   {item.label}
                 </span>
                 {isActive && (
-                  <span className="ml-auto w-1.5 h-8 bg-white rounded-full lg:block hidden" />
+                  <span className="ml-auto w-1.5 h-8 bg-blue-500 rounded-full lg:block hidden" />
                 )}
               </Link>
             );
@@ -145,9 +151,9 @@ function DashboardLayout() {
       {/* MAIN CONTENT */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* TOP NAVBAR */}
-        <header className="h-20 bg-white border-b-gray-400 shadow-sm flex items-center justify-between px-4 lg:px-8 flex-shrink-0 gap-4">
+        <header className="h-20 bg-white border-b border-gray-200 shadow-sm flex items-center justify-between px-4 lg:px-8 flex-shrink-0 gap-4">
           {/* LEFT - Hamburger + Title */}
-          <div className="flex items-center ml-8 gap-2 flex-shrink-0">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <button
               onClick={toggleSidebar}
               className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200"
@@ -189,7 +195,6 @@ function DashboardLayout() {
                   hover:bg-gray-200
                 "
               />
-              {/* Keyboard shortcut hint - hidden on mobile */}
               <kbd className="
                 absolute
                 right-3
