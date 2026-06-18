@@ -1,31 +1,39 @@
-import {BrowserRouter,Routes,Route} from 'react-router-dom'
-import Layout from './components/layout'
-import Home from './pages/home'
-import Hooks from './pages/hooks'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './components/layout';
+import Home from './pages/home';
+import DashboardLayout from './components/Dashboard/DashboardLayout';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Products from './pages/Dashboard/Products';
+import Users from './pages/Dashboard/Users';
+import Orders from './pages/Dashboard/Orders';
+import Contacts from './pages/Dashboard/Contacts';
+import Settings from './pages/Dashboard/Settings';
 
 function App() {
-
   return (
-    <>
-<BrowserRouter>
-<Routes>
-  <Route path="/" element={<Layout />}>
-  <Route index element={<Home />} />
-  <Route path='hooks' element={<Hooks/>}/>
-  </Route>
-  
-</Routes>
+    <BrowserRouter>
+      <Routes>
+        {/* ROUTES PUBLIQUES - AVEC LE LAYOUT PUBLIC */}
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          {/* <Route path='hooks' element={<Hooks/>}/> */}
+        </Route>
 
-
-</BrowserRouter>
-
-
-    </>
-  )
+       
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="products" element={<Products />} />
+          <Route path="users" element={<Users />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="contacts" element={<Contacts />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
-
+export default App;
 
 // import { BrowserRouter,Routes, Route } from "react-router-dom";
 
