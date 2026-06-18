@@ -30,10 +30,10 @@ import { FaInstagram } from "react-icons/fa6";
 
 import InstaA from "../assets/Product_images/insta1.webp";
 import InstaB from "../assets/Product_images/insta2.webp";
-import InstaC from "../assets/Product_images/insta3.webp";
-import InstaD from "../assets/Product_images/insta4.webp";
-import InstaE from "../assets/Product_images/insta5.webp";
-import InstaF from "../assets/Product_images/insta6.webp";
+import InstaC from "../assets/Product_images/temp3.webp";
+import InstaD from "../assets/Product_images/temp4.webp";
+import InstaE from "../assets/Product_images/temp5.webp";
+import InstaF from "../assets/Product_images/temp6.webp";
 
 import { useEffect, useState } from "react";
 
