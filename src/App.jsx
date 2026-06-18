@@ -16,7 +16,7 @@ function App() {
         {/* ROUTES PUBLIQUES - AVEC LE LAYOUT PUBLIC */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          {/* <Route path='hooks' element={<Hooks/>}/> */}
+          
         </Route>
 
        
