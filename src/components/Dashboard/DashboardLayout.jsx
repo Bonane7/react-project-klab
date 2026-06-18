@@ -77,7 +77,7 @@ function DashboardLayout() {
         `}
       >
         {/* LOGO */}
-        <div className="flex items-center justify-between h-20 px-4 border-b">
+        <div className="flex items-center justify-between h-20 px-4">
           <Link 
             to="/dashboard" 
             className={`flex items-center gap-2 font-Maven font-bold text-2xl transition-opacity duration-300 ${!isSidebarOpen && 'lg:opacity-0 lg:pointer-events-none'}`}
@@ -145,9 +145,9 @@ function DashboardLayout() {
       {/* MAIN CONTENT */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* TOP NAVBAR */}
-        <header className="h-20 bg-white border-b shadow-sm flex items-center justify-between px-4 lg:px-8 flex-shrink-0 gap-4">
+        <header className="h-20 bg-white border-b-gray-400 shadow-sm flex items-center justify-between px-4 lg:px-8 flex-shrink-0 gap-4">
           {/* LEFT - Hamburger + Title */}
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center ml-8 gap-2 flex-shrink-0">
             <button
               onClick={toggleSidebar}
               className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200"
