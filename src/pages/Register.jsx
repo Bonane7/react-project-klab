@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiAlertCircle, FiArrowRight, FiCheckCircle } from "react-icons/fi";
+import axios from "axios";
 
 function Register({ switchToLogin }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,7 +22,7 @@ function Register({ switchToLogin }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess(false);
@@ -52,9 +53,18 @@ function Register({ switchToLogin }) {
     }
 
     setIsLoading(true);
-    setTimeout(() => {
-      console.log("Register:", formData);
-      setIsLoading(false);
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api_v1/user/create",
+        {
+          FirstName: formData.firstName,
+          LastName: formData.lastName,
+          email: formData.email,
+          password: formData.password
+        }
+      );
+
+      console.log("Register Success:", response.data);
       setSuccess(true);
       setFormData({
         firstName: "",
@@ -64,7 +74,19 @@ function Register({ switchToLogin }) {
         confirmPassword: "",
       });
       setAgreeTerms(false);
-    }, 1500);
+      
+      // Auto switch to login after a brief delay so the user sees the success message
+      setTimeout(() => {
+        switchToLogin();
+      }, 1500);
+    } catch (err) {
+      console.error("Register Error:", err);
+      setError(
+        err.response?.data?.message || "Registration failed. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

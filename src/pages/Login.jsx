@@ -1,5 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiAlertCircle, FiArrowRight } from "react-icons/fi";
+import axios from "axios";
+
 
 function Login({ switchToRegister }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -9,27 +12,57 @@ function Login({ switchToRegister }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setError("");
-    
-    if (!email || !password) {
-      setError("Please fill in all fields");
-      return;
-    }
-    
-    if (!email.includes("@")) {
-      setError("Please enter a valid email address");
-      return;
-    }
+  const navigate = useNavigate()
 
+
+  const handleLogin = async (e) => {
+  e.preventDefault();
+
+  setError("");
+
+  if (!email || !password) {
+    setError("Please fill in all fields");
+    return;
+  }
+
+  if (!email.includes("@")) {
+    setError("Please enter a valid email address");
+    return;
+  }
+
+  try {
     setIsLoading(true);
-    setTimeout(() => {
-      console.log("Login:", { email, password, rememberMe });
-      setIsLoading(false);
-    }, 1500);
-  };
 
+    const response = await axios.post(
+      "http://localhost:5000/api_v1/user/login",
+      {
+        email,
+        password,
+      }
+    );
+
+    localStorage.setItem("token", response.data.token);
+
+    localStorage.setItem(
+      "user",
+      JSON.stringify(response.data.user)
+    );
+const user= response.data.user;
+if(user.userRole==="admin"){
+navigate("/dashboard")
+}else{
+  navigate("/user/dashboard")
+}
+    console.log(response.data);
+
+  } catch (error) {
+    setError(
+      error.response?.data?.message || "Login failed"
+    );
+  } finally {
+    setIsLoading(false);
+  }
+};
   return (
     <div className="w-full max-w-md mx-auto px-4 py-6 h-full flex flex-col justify-center">
       {/* HEADER - Compact */}
@@ -52,7 +85,7 @@ function Login({ switchToRegister }) {
       )}
 
       {/* FORM */}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleLogin} className="space-y-4">
         {/* Email */}
         <div>
           <label className="block text-xs font-medium text-gray-700 mb-1.5">
