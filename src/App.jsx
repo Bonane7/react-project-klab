@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout';
 import Home from './pages/home';
 import DashboardLayout from './components/Dashboard/DashboardLayout';
@@ -8,14 +8,22 @@ import Users from './pages/Dashboard/Users';
 import Orders from './pages/Dashboard/Orders';
 import Contacts from './pages/Dashboard/Contacts';
 import Settings from './pages/Dashboard/Settings';
-import UserLanding from './pages/Dashboard/UserLanding';
 import ProtectedRoute from './components/ProtectedRoute';
+import ErrorBoundary from './components/ErrorBoundary';
+
+// Import des pages User
+import UserLayout from './pages/User/UserLayout';
+import UserDashboard from './pages/User/UserDashboard';
+import UserShop from './pages/User/UserShop';
+import UserCategories from './pages/User/UserCategories';
+import UserOrders from './pages/User/UserOrders';
+import UserProfile from './pages/User/UserProfile';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* ROUTES PUBLIQUES - AVEC LE LAYOUT PUBLIC */}
+        {/* ROUTES PUBLIQUES */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
         </Route>
@@ -37,15 +45,20 @@ function App() {
         {/* ROUTES USER LANDING */}
         <Route path="/user" element={
           <ProtectedRoute allowedRoles={["user", "admin"]}>
-            <Outlet />
+            <UserLayout />
           </ProtectedRoute>
         }>
-          <Route path="dashboard" element={<UserLanding />} />
-          <Route path="shop" element={<UserLanding />} />
-          <Route path="categories" element={<UserLanding />} />
-          <Route path="orders" element={<UserLanding />} />
-          <Route path="profile" element={<UserLanding />} />
-          <Route path="product/:id" element={<UserLanding />} />
+          <Route index element={<UserDashboard />} />
+          <Route path="dashboard" element={<UserDashboard />} />
+          <Route path="shop" element={
+            <ErrorBoundary>
+              <UserShop />
+            </ErrorBoundary>
+          } />
+          <Route path="categories" element={<UserCategories />} />
+          <Route path="orders" element={<UserOrders />} />
+          <Route path="profile" element={<UserProfile />} />
+          <Route path="product/:id" element={<UserShop />} />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -53,31 +66,3 @@ function App() {
 }
 
 export default App;
-// import { BrowserRouter,Routes, Route } from "react-router-dom";
-
-// import AdminLayout from "./components/adminLayout";
-// import Students from "./pages/Students";
-// import Teachers from "./pages/Teachers";
-// import Settings from "./pages/Settings";
-
-// export default function App() {
-//   return (
-//     <>
-//     <BrowserRouter>
-//     <Routes>
-
-//       {/* Parent */}
-//       <Route path="/admin" element={<AdminLayout />}>
-
-//         {/* Enfants */}
-//         <Route path="students" element={<Students />} />
-//         <Route path="teachers" element={<Teachers />} />
-//         <Route path="settings" element={<Settings />} />
-
-//       </Route>
-
-//     </Routes>
-//     </BrowserRouter>
-//     </>
-//   );
-// }
