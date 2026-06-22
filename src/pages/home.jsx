@@ -13,14 +13,6 @@ import bedroom from "../assets/images/bedroom.webp";
 import kitchen from "../assets/images/kitchen.webp";
 import kidroom from "../assets/images/kidroom.webp";
 
-import ProductA from "../assets/Product_images/product_1.webp";
-import ProductB from "../assets/Product_images/product_2.webp";
-import ProductC from "../assets/Product_images/product_3.webp";
-import Productd from "../assets/Product_images/product_4.webp";
-import ProductE from "../assets/Product_images/product_5.webp";
-import ProductF from "../assets/Product_images/product_6.webp";
-import ProductG from "../assets/Product_images/product_7.webp";
-import ProductH from "../assets/Product_images/product_8.webp";
 import ImageVideo from "../assets/Product_images/video.webp";
 
 import SaleA from "../assets/Product_images/sela1.webp";
@@ -36,10 +28,15 @@ import InstaE from "../assets/Product_images/temp5.webp";
 import InstaF from "../assets/Product_images/temp6.webp";
 
 import { useEffect, useState } from "react";
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 function Home() {
   const [timeLeft, setTimeLeft] = useState(220 * 24 * 60 * 60);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const slides = [
     {
@@ -95,61 +92,24 @@ function Home() {
     );
   };
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/api_v1/product/getProducts`);
+        setProducts(res.data.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
   const days = Math.floor(timeLeft / (24 * 60 * 60));
   const hours = Math.floor((timeLeft % (24 * 60 * 60)) / (60 * 60));
   const mins = Math.floor((timeLeft % (60 * 60)) / 60);
   const secs = timeLeft % 60;
-
-  const Products = [
-    {
-      id: 1,
-      title: "Ana Gray Dining Chair",
-      price: "299 Frw",
-      image: ProductA,
-    },
-    {
-      id: 2,
-      title: "Natural Wood Dining Chair",
-      price: "300 Frw",
-      image: ProductB,
-    },
-    {
-      id: 3,
-      title: "Paolo Black Wood Dining Chair",
-      price: "400 Frw",
-      image: ProductC,
-    },
-    {
-      id: 4,
-      title: "Curved Back Dining Chair",
-      price: "200 Frw",
-      image: Productd,
-    },
-    {
-      id: 5,
-      title: "Natural Wood Dining Chair",
-      price: "300 Frw",
-      image: ProductE,
-    },
-    {
-      id: 6,
-      title: "Paolo Black Wood Dining Chair",
-      price: "400 Frw",
-      image: ProductF,
-    },
-    {
-      id: 7,
-      title: "Curved Back Dining Chair",
-      price: "200 Frw",
-      image: ProductG,
-    },
-    {
-      id: 8,
-      title: "Curved Back Dining Chair",
-      price: "200 Frw",
-      image: ProductH,
-    },
-  ];
 
   const images = [InstaA, InstaB, InstaC, InstaD, InstaE, InstaF];
 
@@ -319,26 +279,30 @@ function Home() {
       </div>
 
       <section className="flex justify-center items-center w-full px-6 py-10 bg-white mt-12">
-        <div className="flex gap-5 overflow-x-auto md:grid md:grid-cols-3 xl:grid-cols-4">
-          {Products.map((i) => (
-            <div
-              key={i.id}
-              className="min-w-[300px] md:min-w-0 rounded-xl overflow-hidden bg-white"
-            >
-              <div className="w-full rounded-1xl overflow-hidden">
-                <img
-                  src={i.image}
-                  alt={i.title}
-                  className="w-full h-[350px] object-cover transition duration-700 hover:scale-110"
-                />
+        {loading ? (
+          <p className="text-gray-400 text-xl">Loading products...</p>
+        ) : (
+          <div className="flex gap-5 overflow-x-auto md:grid md:grid-cols-3 xl:grid-cols-4">
+            {products.map((i) => (
+              <div
+                key={i._id}
+                className="min-w-[300px] md:min-w-0 rounded-xl overflow-hidden bg-white"
+              >
+                <div className="w-full rounded-1xl overflow-hidden">
+                  <img
+                    src={i.imageUrl}
+                    alt={i.productName}
+                    className="w-full h-[350px] object-cover transition duration-700 hover:scale-110"
+                  />
+                </div>
+                <div className="p-4">
+                  <h1 className="text-xl font-extra">{i.productName}</h1>
+                  <p className="text-orange-500 mt-2">{i.productPrice} Frw</p>
+                </div>
               </div>
-              <div className="p-4">
-                <h1 className="text-xl font-extra">{i.title}</h1>
-                <p className="text-orange-500 mt-2">{i.price}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
       <div className="w-full flex justify-center">
