@@ -19,6 +19,10 @@ import UserCategories from './pages/User/UserCategories';
 import UserOrders from './pages/User/UserOrders';
 import UserProfile from './pages/User/UserProfile';
 
+// Import des pages Cart & Checkout
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+
 function App() {
   return (
     <BrowserRouter>
@@ -27,6 +31,18 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
         </Route>
+
+        {/* ROUTES CART & CHECKOUT (protégées) */}
+        <Route path="/cart" element={
+          <ProtectedRoute allowedRoles={["user", "admin"]}>
+            <Cart />
+          </ProtectedRoute>
+        } />
+        <Route path="/checkout" element={
+          <ProtectedRoute allowedRoles={["user", "admin"]}>
+            <Checkout />
+          </ProtectedRoute>
+        } />
 
         {/* ROUTES ADMIN DASHBOARD */}
         <Route path="/dashboard" element={

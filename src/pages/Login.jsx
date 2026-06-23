@@ -42,6 +42,7 @@ function Login({ switchToRegister }) {
     );
 
     localStorage.setItem("token", response.data.token);
+    console.log("Token reçu:", response.data.token);
 
     localStorage.setItem(
       "user",

@@ -1,11 +1,16 @@
 import { useState } from "react";
-import { FiX, FiHeart, FiMinus, FiPlus, FiShoppingBag, FiCreditCard } from "react-icons/fi";
+import { FiX, FiHeart, FiMinus, FiPlus, FiShoppingBag, FiCreditCard, FiLoader } from "react-icons/fi";
 import { FaStar } from "react-icons/fa";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+const BASE_URL = `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api_v1`;
 
 function ProductModal({ product, isOpen, onClose }) {
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
+  const [addingToCart, setAddingToCart] = useState(false);
 
   if (!isOpen || !product) return null;
 
@@ -21,8 +26,8 @@ function ProductModal({ product, isOpen, onClose }) {
   const imageUrl = product?.imageUrl || product?.image || null;
   const productName = product?.productName || product?.name || product?.title || 'Product';
   const productPrice = product?.productPrice || product?.price || 0;
+  const productId = product?._id || product?.id;
   
-  // ✅ Récupération de la description depuis le backend
   const productDescription = product?.productDescription || product?.description || product?.desc || 
     "Experience the perfect blend of comfort and style with this premium furniture piece. Crafted with high-quality materials for lasting durability.";
 
@@ -31,14 +36,45 @@ function ProductModal({ product, isOpen, onClose }) {
     if (quantity > 1) setQuantity(prev => prev - 1);
   };
 
-  const handleAddToCart = () => {
-    console.log("Added to cart:", { product, quantity, selectedColor, selectedSize });
-    // Ici vous pouvez ajouter la logique d'ajout au panier
+  // ✅ Ajouter au panier depuis le modal
+  const handleAddToCart = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Please login to add items to cart");
+      return;
+    }
+
+    try {
+      setAddingToCart(true);
+      const res = await axios.post(
+        `${BASE_URL}/cart/add`,
+        { 
+          productId: productId, 
+          quantity: quantity 
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (res.data.success) {
+        toast.success(`${quantity} × ${productName} added to cart! 🛒`);
+        // Option: fermer le modal après ajout
+        // onClose();
+      }
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      toast.error(error.response?.data?.message || "Failed to add to cart");
+    } finally {
+      setAddingToCart(false);
+    }
   };
 
   const handleBuyNow = () => {
-    console.log("Buy now:", { product, quantity, selectedColor, selectedSize });
-    // Ici vous pouvez ajouter la logique d'achat immédiat
+    // Rediriger vers le checkout avec le produit
+    // ou ajouter au panier puis rediriger
+    handleAddToCart();
+    // setTimeout(() => {
+    //   window.location.href = "/checkout";
+    // }, 1000);
   };
 
   return (
@@ -97,15 +133,15 @@ function ProductModal({ product, isOpen, onClose }) {
             {/* Price */}
             <div className="mt-4">
               <span className="text-3xl font-bold text-orange-500">
-                FRw {Number(productPrice).toFixed(2)}
+                ${Number(productPrice).toFixed(2)}
               </span>
               <span className="ml-2 text-sm text-gray-400 line-through">
-                FRw{(Number(productPrice) * 1.2).toFixed(2)}
+                ${(Number(productPrice) * 1.2).toFixed(2)}
               </span>
               <span className="ml-2 text-sm text-green-500 font-medium">-20%</span>
             </div>
 
-            {/* ✅ Description dynamique depuis le backend */}
+            {/* Description */}
             <div className="mt-4">
               <p className="text-gray-600 text-sm leading-relaxed">
                 {productDescription}
@@ -181,18 +217,24 @@ function ProductModal({ product, isOpen, onClose }) {
               </div>
             </div>
 
-            {/* Action Buttons */}
+            {/* ✅ Action Buttons avec ajout au panier */}
             <div className="mt-6 grid grid-cols-2 gap-3">
               <button
                 onClick={handleAddToCart}
-                className="flex items-center justify-center gap-2 px-6 py-3 bg-orange-500 text-white rounded-xl font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/30"
+                disabled={addingToCart}
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-orange-500 text-white rounded-xl font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/30 disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
-                <FiShoppingBag className="text-lg" />
-                Add to Cart
+                {addingToCart ? (
+                  <FiLoader className="animate-spin" />
+                ) : (
+                  <FiShoppingBag className="text-lg" />
+                )}
+                {addingToCart ? "Adding..." : "Add to Cart"}
               </button>
               <button
                 onClick={handleBuyNow}
-                className="flex items-center justify-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 transition-colors"
+                disabled={addingToCart}
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
                 <FiCreditCard className="text-lg" />
                 Buy Now
@@ -205,7 +247,7 @@ function ProductModal({ product, isOpen, onClose }) {
               Add to Wishlist
             </button>
 
-            {/* ✅ Affichage de la catégorie et du stock (optionnel) */}
+            {/* Category & SKU */}
             <div className="mt-4 pt-4 border-t border-gray-100 flex justify-between text-xs text-gray-400">
               <span>Category: {product?.productCategory || product?.category || 'Furniture'}</span>
               <span>SKU: {product?.sku || product?._id?.slice(-6) || 'N/A'}</span>
